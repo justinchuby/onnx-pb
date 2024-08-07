@@ -308,7 +308,7 @@ class TrainingInfoProto(_message.Message):
     def __init__(self, initialization: Optional[Union[GraphProto, Mapping]] = ..., algorithm: Optional[Union[GraphProto, Mapping]] = ..., initialization_binding: Optional[Iterable[Union[StringStringEntryProto, Mapping]]] = ..., update_binding: Optional[Iterable[Union[StringStringEntryProto, Mapping]]] = ...) -> None: ...
 
 class TypeProto(_message.Message):
-    __slots__ = ["denotation", "map_type", "optional_type", "sequence_type", "sparse_tensor_type", "tensor_type"]
+    __slots__ = ["denotation", "map_type", "opaque_type", "optional_type", "sequence_type", "sparse_tensor_type", "tensor_type"]
     class Map(_message.Message):
         __slots__ = ["key_type", "value_type"]
         KEY_TYPE_FIELD_NUMBER: ClassVar[int]
@@ -316,6 +316,13 @@ class TypeProto(_message.Message):
         key_type: int
         value_type: TypeProto
         def __init__(self, key_type: Optional[int] = ..., value_type: Optional[Union[TypeProto, Mapping]] = ...) -> None: ...
+    class Opaque(_message.Message):
+        __slots__ = ["domain", "name"]
+        DOMAIN_FIELD_NUMBER: ClassVar[int]
+        NAME_FIELD_NUMBER: ClassVar[int]
+        domain: str
+        name: str
+        def __init__(self, domain: Optional[str] = ..., name: Optional[str] = ...) -> None: ...
     class Optional(_message.Message):
         __slots__ = ["elem_type"]
         ELEM_TYPE_FIELD_NUMBER: ClassVar[int]
@@ -342,17 +349,19 @@ class TypeProto(_message.Message):
         def __init__(self, elem_type: Optional[int] = ..., shape: Optional[Union[TensorShapeProto, Mapping]] = ...) -> None: ...
     DENOTATION_FIELD_NUMBER: ClassVar[int]
     MAP_TYPE_FIELD_NUMBER: ClassVar[int]
+    OPAQUE_TYPE_FIELD_NUMBER: ClassVar[int]
     OPTIONAL_TYPE_FIELD_NUMBER: ClassVar[int]
     SEQUENCE_TYPE_FIELD_NUMBER: ClassVar[int]
     SPARSE_TENSOR_TYPE_FIELD_NUMBER: ClassVar[int]
     TENSOR_TYPE_FIELD_NUMBER: ClassVar[int]
     denotation: str
     map_type: TypeProto.Map
+    opaque_type: TypeProto.Opaque
     optional_type: TypeProto.Optional
     sequence_type: TypeProto.Sequence
     sparse_tensor_type: TypeProto.SparseTensor
     tensor_type: TypeProto.Tensor
-    def __init__(self, tensor_type: Optional[Union[TypeProto.Tensor, Mapping]] = ..., sequence_type: Optional[Union[TypeProto.Sequence, Mapping]] = ..., map_type: Optional[Union[TypeProto.Map, Mapping]] = ..., optional_type: Optional[Union[TypeProto.Optional, Mapping]] = ..., sparse_tensor_type: Optional[Union[TypeProto.SparseTensor, Mapping]] = ..., denotation: Optional[str] = ...) -> None: ...
+    def __init__(self, tensor_type: Optional[Union[TypeProto.Tensor, Mapping]] = ..., sequence_type: Optional[Union[TypeProto.Sequence, Mapping]] = ..., map_type: Optional[Union[TypeProto.Map, Mapping]] = ..., optional_type: Optional[Union[TypeProto.Optional, Mapping]] = ..., sparse_tensor_type: Optional[Union[TypeProto.SparseTensor, Mapping]] = ..., opaque_type: Optional[Union[TypeProto.Opaque, Mapping]] = ..., denotation: Optional[str] = ...) -> None: ...
 
 class ValueInfoProto(_message.Message):
     __slots__ = ["doc_string", "metadata_props", "name", "type"]
